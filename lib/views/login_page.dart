@@ -160,12 +160,17 @@ class _LoginPageState extends State<LoginPage> {
                   Row(
                     children: [
                       Expanded(child: Container(),),
-                      Text(
-                        "Forget your password?",
+                      GestureDetector(
+                        child: Text(
+                        "Forgot your password?",
                         style: TextStyle(
                           fontSize: 15,
                           color: Colors.grey[500],
                         ),
+                      ),
+                      onTap: () {
+                        AuthController.instance.resetPassword(emailController.text.trim());
+                      },
                       )
                     ],
                   )
@@ -193,34 +198,6 @@ class _LoginPageState extends State<LoginPage> {
                 child: const Center(
                   child: Text(
                     "Sign In",
-                    style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                AuthController.instance.resetPassword(emailController.text.trim());
-              },
-              child: Container(
-                width: w * 0.5,
-                height: h * 0.08,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    image: const DecorationImage(
-                        image: AssetImage(
-                            "assets/images/red.jpg"
-                        ),
-                        fit: BoxFit.fill
-                    )
-                ),
-                child: const Center(
-                  child: Text(
-                    "Reset Password",
                     style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.bold,

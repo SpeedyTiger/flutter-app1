@@ -78,7 +78,13 @@ class AuthController extends GetxController {
 
   void resetPassword(String email) async {
     try {
-      return await auth.sendPasswordResetEmail(email: email);
+      await auth.sendPasswordResetEmail(email: email);
+            Get.snackbar(
+              "Success",
+               "Check your inbox for email (also check spam/junk)",
+               snackPosition: SnackPosition.BOTTOM,
+               backgroundColor: Colors.green,
+              );
     } catch (e) {
       // print(e); // showError(title: '...', error: e);
       Get.snackbar("About User", "User Message",
