@@ -9,7 +9,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthController extends GetxController {
 
   static AuthController instance = Get.find();
+  
   late Rx<User?> _user;
+  TextEditingController emailController = TextEditingController();
+
   FirebaseAuth auth = FirebaseAuth.instance;
   GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
 
