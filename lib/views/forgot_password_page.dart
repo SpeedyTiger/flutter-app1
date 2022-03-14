@@ -5,26 +5,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-
-  @override
-  void initState() {
-    Get.put(AuthController());
-    super.initState();
-  }
-
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-
+class ForgotPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(AuthController());
+
     double w = MediaQuery
         .of(context)
         .size
@@ -57,15 +42,8 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Welcome To Our Market",
-                    style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
                   Text(
-                    "Sign In with your account",
+                    "Reset Password",
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey[500],
@@ -86,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                         ]
                     ),
                     child: TextField(
-                      controller: emailController,
+                      controller: controller.emailController,
                       decoration: InputDecoration(
                           hintText: "Email",
                           prefixIcon: const Icon(
@@ -114,74 +92,13 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 20,),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 10,
-                              spreadRadius: 7,
-                              offset: const Offset(1, 1),
-                              color: Colors.grey.withOpacity(0.2)
-                          )
-                        ]
-                    ),
-                    child: TextField(
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          hintText: "Password",
-                          prefixIcon: const Icon(
-                            Icons.password,
-                            color: Colors.lightBlueAccent,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: const BorderSide(
-                                  color: Colors.white,
-                                  width: 1.0
-                              )
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: const BorderSide(
-                                  color: Colors.white,
-                                  width: 1.0
-                              )
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30)
-                          )
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20,),
-                  Row(
-                    children: [
-                      Expanded(child: Container(),),
-                      GestureDetector(
-                        child: Text(
-                        "Forgot your password?",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.grey[500],
-                        ),
-                      ),
-                      onTap: () {
-                        AuthController.instance.resetPassword(emailController.text.trim());
-                      },
-                      )
-                    ],
-                  )
                 ],
               ),
             ),
             const SizedBox(height: 30,),
             GestureDetector(
               onTap: () {
-                AuthController.instance.login(emailController.text.trim(),
-                    passwordController.text.trim());
+                controller.resetPassword(emailController.text.trim());
               },
               child: Container(
                 width: w * 0.5,
@@ -197,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 child: const Center(
                   child: Text(
-                    "Sign In",
+                    "Send Email",
                     style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
@@ -207,29 +124,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            SizedBox(height: h * 0.12,),
-            RichText(
-              text: TextSpan(
-                  text: "Don't have an account?  ",
-                  style: TextStyle(
-                    color: Colors.grey[500],
-                    fontSize: 20,
-                  ),
-                  children: [
-                    TextSpan(
-                        text: "Create One",
-                        style: const TextStyle(
-                            color: Colors.blue,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
-                        ),
-                        recognizer: TapGestureRecognizer()..onTap=() {
-                          Get.to( () => SignUpPage());
-                        }
-                    )
-                  ]
-              ),
-            )
           ],
         ),
       ),

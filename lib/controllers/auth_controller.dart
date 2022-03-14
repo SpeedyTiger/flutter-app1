@@ -9,7 +9,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthController extends GetxController {
 
   static AuthController instance = Get.find();
+  
   late Rx<User?> _user;
+  TextEditingController emailController = TextEditingController();
+
   FirebaseAuth auth = FirebaseAuth.instance;
   GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
 
@@ -62,6 +65,36 @@ class AuthController extends GetxController {
           snackPosition: SnackPosition.BOTTOM,
           titleText: const Text(
             "login failed",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          messageText: Text(
+            e.toString(),
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          )
+      );
+    }
+  }
+
+  void resetPassword(String email) async {
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+            Get.snackbar(
+              "Success",
+               "Check your inbox for email (also check spam/junk)",
+               snackPosition: SnackPosition.BOTTOM,
+               backgroundColor: Colors.green,
+              );
+    } catch (e) {
+      // print(e); // showError(title: '...', error: e);
+      Get.snackbar("About User", "User Message",
+          backgroundColor: Colors.lightBlueAccent,
+          snackPosition: SnackPosition.BOTTOM,
+          titleText: const Text(
+            "Reset Failed...",
             style: TextStyle(
               color: Colors.white,
             ),
