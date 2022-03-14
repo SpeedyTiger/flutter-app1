@@ -76,6 +76,30 @@ class AuthController extends GetxController {
     }
   }
 
+  void resetPassword(String email) async {
+    try {
+      return await auth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      // print(e); // showError(title: '...', error: e);
+      Get.snackbar("About User", "User Message",
+          backgroundColor: Colors.lightBlueAccent,
+          snackPosition: SnackPosition.BOTTOM,
+          titleText: const Text(
+            "Reset Failed...",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          messageText: Text(
+            e.toString(),
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          )
+      );
+    }
+  }
+
   void logOut() async{
     await auth.signOut();
   }
